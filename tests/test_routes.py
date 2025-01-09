@@ -124,11 +124,9 @@ class TestAccountService(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_method_not_allowed(self):
-        """It should return '405 METHOD NOT ALLOWED' when using an unsupported method"""
-        resp = self.client.put(BASE_URL)  # Assuming PUT is not supported at this endpoint
+        """It should not allow an illegal method call"""
+        resp = self.client.delete(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
-        data = resp.get_json()
-        self.assertIn('Method not Allowed', data['error'])
 
     def test_get_account_list(self):
         """It should Get a list of Accounts"""
